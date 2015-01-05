@@ -2,10 +2,7 @@ package entities.resources;
 
 import java.util.Random;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
-
 import entities.Item;
 import entities.Resource;
 

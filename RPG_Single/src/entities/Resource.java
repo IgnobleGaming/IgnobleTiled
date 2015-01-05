@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import entities.inventory.Inventory;
-import entities.players.Player;
 import it.randomtower.engine.entity.Entity;
 
 public class Resource extends Entity {

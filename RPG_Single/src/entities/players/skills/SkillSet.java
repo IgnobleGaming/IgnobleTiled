@@ -1,6 +1,5 @@
 package entities.players.skills;
 
-import skill.Skill;
 import skill.skills.Blacksmith;
 
 public class SkillSet {

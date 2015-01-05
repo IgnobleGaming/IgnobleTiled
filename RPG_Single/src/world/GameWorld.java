@@ -12,14 +12,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import entities.Resource;
 import entities.players.Npc;
 import entities.players.Player;
-import entities.resources.Ore;
 import entities.resources.WorldResources;
 import factory.Factory;
 
