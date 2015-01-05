@@ -1,6 +1,5 @@
 package entities.players;
 
-import it.randomtower.engine.World;
 import it.randomtower.engine.entity.Entity;
 
 import org.newdawn.slick.Animation;
@@ -10,13 +9,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
 
-import skill.Skill;
 import world.GameWorld;
 import entities.Item;
 import entities.Mob;
 import entities.Resource;
 import entities.players.skills.SkillSet;
-import entities.resources.WorldResources;
 
 public class Player extends Mob {
 
@@ -130,7 +127,7 @@ public class Player extends Mob {
 						
 						switch(tempId){
 						case 1:
-							
+							//this shit dont work, yo
 							SkillSet.getSmithing().addExp(exp);
 						}
 					}
