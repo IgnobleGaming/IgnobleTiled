@@ -130,7 +130,7 @@ public class Player extends Mob {
 						
 						switch(tempId){
 						case 1:
-							
+							//this shit dont work, yo
 							SkillSet.getSmithing().addExp(exp);
 						}
 					}
