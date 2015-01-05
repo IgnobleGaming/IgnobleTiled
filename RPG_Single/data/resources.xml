@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!--basedir-->
+	<basedir path = "Images/" />
+	<!--sounds-->
+	<!--songs-->
+	<!--images-->
+	<sheet file = "/Resources/Ore.png" height = "64" key = "ore" width = "64">
+	<sheet file = "/Environment/tileSet.png" height = "32" key = "env" width = "32">
+	</sheet></sheet>
+	<!--sheets-->
+	<!--fonts-->
+</resources>

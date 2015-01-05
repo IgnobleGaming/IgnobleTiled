@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="landTiles" tilewidth="64" tileheight="64">
+  <image source="tileMap.png" trans="ff00ff" width="768" height="1920"/>
+  <terraintypes>
+   <terrain name="water" tile="22"/>
+  </terraintypes>
+  <tile id="22">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="water" width="100" height="100">
+  <properties>
+   <property name="blocked" value="true"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DAQkAAAwEoWvx/ZsOlkPBVVNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf8B8uW12ECcAAA=
+  </data>
+ </layer>
+ <layer name="ground" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3UQQqAIBCG0c7k/Q/XJggkLGvUgd6DWbn7P3DbTuU41ivVsZYeudQ9NFnrqoc+azxpocs8vT00GUuPfN400WacLz10iRfRQ5M4UT10iaFHLnrk0tpUj/nuNtViPj1yqf+o1psO4/VuqgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf7EDxXDi20CcAAA=
+  </data>
+ </layer>
+</map>
