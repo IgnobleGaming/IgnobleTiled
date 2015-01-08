@@ -13,7 +13,7 @@ public class WorldResources {
 	
 	private static int numResources = 0;
 
-	private static int maxResources = 3;
+	private static int maxResources = 10;
 	
 	private int numOre = 0;
 	private int numTree = 0;
@@ -36,7 +36,7 @@ public class WorldResources {
 				resources.addElement(resource);
 			} catch (Exception e){}
 			
-			numResources++;
+			updateResources();
 			return true;
 		} else {
 			System.out.println("Too many resources");
@@ -50,7 +50,7 @@ public class WorldResources {
 		resources.removeElement(resource);
 		} catch (Exception e){}
 		
-		numResources--;
+		updateResources();
 	}
 
 	/***/

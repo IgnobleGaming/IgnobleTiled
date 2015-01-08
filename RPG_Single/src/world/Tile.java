@@ -32,9 +32,9 @@ public class Tile {
 	
 	/** BOOLEANS */
 	private boolean occupied;	  // Is tile occupied?
-	private boolean traversable;  // Is tile traversable?
-	private boolean isWater;      // Is it a Water Tile?
-	private boolean isRock;       // Is it a Rock Tile?
+	private boolean traversable = true;  // Is tile traversable?
+	private boolean isWater = false;      // Is it a Water Tile?
+	private boolean isRock = false;       // Is it a Rock Tile?
 	
 	/** Random */
 	Random rand = new Random(System.currentTimeMillis());
@@ -67,40 +67,13 @@ public class Tile {
 	/** Defines each type of block a set of booleans which will determine movement */
 	private void setBooleans(int backID){
 		switch(backID){
-		case 1: // Grass
-			traversable = true;
-			isWater = false;
-			isRock = false;
-			break;
 		case 2: // Water
 			traversable = false;
 			isWater = true;
-			isRock = false;
-			break;
-		case 3: // Dirt
-			traversable = true;
-			isWater = false;
-			isRock = false;
-			break;
-		case 4: // Sand
-			traversable = true;
-			isWater = false;
-			isRock = false;
 			break;
 		case 5: // Stone
 			traversable = false;
-			isWater = false;
 			isRock = true;
-			break;
-		case 6: // Cobblestone
-			traversable = true;
-			isWater = false;
-			isRock = false;
-			break;
-		case 7: // Brick
-			traversable = true;
-			isWater = false;
-			isRock = false;
 			break;
 		default:
 			break;

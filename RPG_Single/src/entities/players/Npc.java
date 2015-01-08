@@ -18,7 +18,7 @@ public class Npc extends Mob {
 	// private Animation walking;
 
 	// Computer AI //
-	public Entity target;
+	public String targetName = null;
 
 	// Mob SpriteSheet //
 
@@ -56,7 +56,7 @@ public class Npc extends Mob {
 			throws SlickException {
 		super.update(container, delta);
 
-		if (target == null) {
+		if (targetName == null) {
 			findTarget();
 		}
 	}
@@ -73,19 +73,19 @@ public class Npc extends Mob {
 	}
 
 	/**
-	 * Getters for Hostile NPC Target
+	 * Getter for Hostile NPC Target
+	 * 
+	 * --Will eventually move to NPC AI
 	 */
-
 	public void findTarget() {
 		for (Entity e : world.getEntities()) {
 			if (e instanceof Player) {
-				target = e;
-				System.out.println(e.name);
+				targetName = e.name;
 			}
 		}
 	}
 
-	public Entity getTarget() {
-		return target;
+	public String getTarget() {
+		return targetName;
 	}
 }

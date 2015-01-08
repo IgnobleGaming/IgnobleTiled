@@ -1,6 +1,5 @@
 package entities.players;
 
-import it.randomtower.engine.World;
 import it.randomtower.engine.entity.Entity;
 
 import org.newdawn.slick.Animation;
@@ -11,11 +10,21 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.tiled.TiledMap;
 
 import skill.Skill;
+import skill.skills.Alchemy;
+import skill.skills.Blacksmith;
+import skill.skills.Botony;
+import skill.skills.Cooking;
+import skill.skills.Fishing;
+import skill.skills.Fletching;
+import skill.skills.LeatherWorking;
+import skill.skills.Mining;
+import skill.skills.Skinning;
+import skill.skills.Tailoring;
+import skill.skills.WoodCutting;
 import world.GameWorld;
 import entities.Item;
 import entities.Mob;
 import entities.Resource;
-import entities.players.skills.SkillSet;
 import entities.resources.WorldResources;
 
 public class Player extends Mob {
@@ -40,10 +49,13 @@ public class Player extends Mob {
 
 	/** Direction the player is facing */
 	private int direction = -1;
-	
-	/** Player's Skills */
-	private SkillSet skills;
 
+	/** Player's Skills */
+	private Skill skills[] = new Skill [12];
+	private int skillExp[] = new int [12];
+	private int skillLevels[] = new int [12];
+	private final int maxEL = 100;
+	
 	@SuppressWarnings("unused")
 	private int height;
 	@SuppressWarnings("unused")
@@ -66,11 +78,22 @@ public class Player extends Mob {
 		this.x = x * modifier;
 		this.y = y * modifier;
 
+		map = GameWorld.getMap();
+
 		setGraphic(getClassGraphic(clothing));
 
 		depth = 0;
 
 		defineControls();
+	}
+
+	/** Player Update Loop */
+	@Override
+	public void update(GameContainer container, int delta)
+			throws SlickException {
+		super.update(container, delta);
+	
+		nonCombatControls();
 	}
 
 	/**
@@ -83,13 +106,48 @@ public class Player extends Mob {
 		define(RIGHT, Input.KEY_D, Input.KEY_RIGHT);
 		define(INTERACT, Input.KEY_E);
 	}
-
+	
+	/**
+	 * Defines User Skills
+	 */
+	private void defineSkills(int [] exp, int [] levels){
+		skills[0] = null;
+		skills[1] = new Mining();
+		skills[2] = new Fishing();
+		skills[3] = new Botony();
+		skills[4] = new WoodCutting();
+		skills[5] = new Skinning();
+		skills[6] = new Blacksmith();
+		skills[7] = new Cooking();
+		skills[8] = new Alchemy();
+		skills[9] = new Fletching();
+		skills[10] = new LeatherWorking();
+		skills[11] = new Tailoring();
+	}
+	
+	private void updateSkillExp(){
+		for(int i = 0; i < skillExp.length; i++){
+			
+			if(skillLevels[i] >= maxEL){
+				skillLevels[i] = maxEL;
+				continue;
+			} else{
+				if(skillExp[i] >= maxEL){
+					skillLevels[i] = (int) Math.floor(skillExp[i] / maxEL);
+					skillExp[i] = skillExp[i] % maxEL;
+				}
+			}
+		}
+	}
+	
+	
 	/**
 	 * Non Combat Movement
 	 * 
 	 * @throws InterruptedException
 	 */
 	private void nonCombatControls() {
+
 		if (pressed(LEFT)) {
 			direction = 0;
 			doMove(direction);
@@ -123,16 +181,12 @@ public class Player extends Mob {
 					talk((Npc) e);
 
 				if (e instanceof Resource) {
-					if(harvest((Resource) e)){
-						
+					if (harvest((Resource) e)) {
+
 						int tempId = ((Resource) e).getId();
 						int exp = Resource.getExp();
-						
-						switch(tempId){
-						case 1:
-							//this shit dont work, yo
-							SkillSet.getSmithing().addExp(exp);
-						}
+						skills[tempId].addExp(exp);
+						WorldResources.removeResource((Resource) e);
 					}
 				}
 			}
@@ -189,15 +243,6 @@ public class Player extends Mob {
 
 	}
 
-	/** Player Update Loop */
-	@Override
-	public void update(GameContainer container, int delta)
-			throws SlickException {
-		super.update(container, delta);
-
-		nonCombatControls();
-	}
-
 	/** Item Collision detection */
 	@Override
 	public void collisionResponse(Entity itemPickup) {
@@ -205,6 +250,11 @@ public class Player extends Mob {
 			Item item = (Item) itemPickup;
 			this.pickUp(item);
 		}
+	}
+
+	/** Sets the GameWorld for the player */
+	public void setGameWorld(GameWorld gameWorld) {
+		this.gameworld = gameWorld;
 	}
 
 	/** Name Getter */
@@ -220,9 +270,5 @@ public class Player extends Mob {
 	/** Returns the Y coordinate the player is facing */
 	public float getDirY() {
 		return intY;
-	}
-
-	public void setGameWorld(GameWorld gameWorld) {
-		this.gameworld = gameWorld;
 	}
 }
