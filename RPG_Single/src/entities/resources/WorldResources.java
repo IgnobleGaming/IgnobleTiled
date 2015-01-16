@@ -29,7 +29,7 @@ public class WorldResources {
 	}
 	
 	/** Adds a resource to the world */
-	public static boolean addResource(Resource resource) {
+	public static void addResource(Resource resource) {
 		if (numResources < maxResources) {
 			
 			try{
@@ -37,10 +37,6 @@ public class WorldResources {
 			} catch (Exception e){}
 			
 			updateResources();
-			return true;
-		} else {
-			System.out.println("Too many resources");
-			return false;
 		}
 	}
 
@@ -79,11 +75,11 @@ public class WorldResources {
 		numResources = resources.size();
 	}
 
-	public int getMaxNumResources() {
+	public static int getMaxNumResources() {
 		return maxResources;
 	}
 
-	public int getNumResources() {
+	public static int getNumResources() {
 		return numResources;
 	}
 }

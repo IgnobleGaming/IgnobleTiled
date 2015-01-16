@@ -55,13 +55,7 @@ public class Herb extends Resource{
 		init(subID);
 	}
 
-	private void addHerb(Item item, int amt) {
-		for (int i = 0; i < amt; i++) {
-			inventory.add(item, false);
-		}
-	}
-
-	public static int getID() {
+	public int getID() {
 		return id;
 	}
 }

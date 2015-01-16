@@ -8,10 +8,10 @@ import entities.Resource;
 
 public class Ore extends Resource {
 
-	// Resource ID //
+	/** Resource ID */
 	private static final int id = 1;
 	
-	// Random used for Grade and Exp //
+	/** Random used for Grade and Exp */
 	private Random rand;
 
 	public Ore(float x, float y, int subId) throws SlickException {
@@ -30,23 +30,28 @@ public class Ore extends Resource {
 
 		switch (subID) {
 		case 1:
+			skillReq = 0;
 			experience = 10;
 			name = "Stone";
 			break;
 		case 2:
-			experience = rand.nextInt(10) + 15;
+			skillReq = 15;
+			experience += 15;
 			name = "Bronze";
 			break;
 		case 3:
-			experience = rand.nextInt(10) + 25;
+			skillReq = 30;
+			experience += 25;
 			name = "Iron";
 			break;
 		case 4:
-			experience = rand.nextInt(10) + 50;
+			skillReq = 50;
+			experience += 50;
 			name = "Coal";
 			break;
 		case 5:
-			experience = rand.nextInt(10) + 75;
+			skillReq = 70;
+			experience += 190;
 			name = "Mithril";
 		default:
 			break;
@@ -54,14 +59,8 @@ public class Ore extends Resource {
 
 		init(subID);
 	}
-
-	private void addOre(Item item, int amt) {
-		for (int i = 0; i < amt; i++) {
-			inventory.add(item, false);
-		}
-	}
 	
-	public static int getID() {
+	public int getID() {
 		return id;
 	}
 }

@@ -28,7 +28,7 @@ public class Resource extends Entity {
 	private float grade;
 	
 	/** Experience from Harvesting */
-	protected static int experience;
+	protected int experience = 10;
 
 	/** Sprite Sheet Image */
 	protected Image sSImage;
@@ -56,6 +56,7 @@ public class Resource extends Entity {
 
 	/** Begins Defining the Resource */
 	public void init(int subId) throws SlickException {
+
 		setSubID(subId);
 		setInfo();
 	}
@@ -101,9 +102,10 @@ public class Resource extends Entity {
 			isHarvested = true;
 			break;
 		}
+		
 		if (!isHarvested) {
 			setGraphic(spriteSheet.getSubImage(
-					(int) (subID * modifier - modifier), 0));
+					(int) (subID * modifier - modifier), 0, (int) modifier, (int) modifier));
 		}
 	}
 
@@ -112,10 +114,10 @@ public class Resource extends Entity {
 		subID = subId;
 	}
 	
+	/** Dumps Entity data */
 	@Override
 	public void removedFromWorld(){
 		this.collidable = false;
-		this.destroy();
 	}
 
 	/** Randomly Generated Resource Quality */
@@ -126,12 +128,14 @@ public class Resource extends Entity {
 		}
 	}
 
+	/** 		Harvest               **/
+	/** Trigger for cleanup in Update **/
 	public boolean harvest() {
 		isHarvested = true;
-		
 		return isHarvested;
 	}
 	
+	/** Destroys Resource */
 	public void destroyRes(){
 		this.destroy();
 	}
@@ -141,10 +145,12 @@ public class Resource extends Entity {
 		return grade;
 	}
 	
-	public static int getExp(){
+	/** Getter for Exp Reward */
+	public int getExp(){
 		return experience;
 	}
 	
+	/** Getter for Required Skill */
 	public int getReq(){
 		return skillReq;
 	}
@@ -163,11 +169,18 @@ public class Resource extends Entity {
 	public Inventory getInv() {
 		return inventory;
 	}
+
+	/** Adds an item to the Resources  */
+	protected void addItem(Item item) {
+		inventory.add(item, false);
+	}
 	
+	/** Returns if Resource is Harvested */
 	public boolean isHarvested(){
 		return isHarvested;
 	}
 	
+	/** Getter for ID */
 	public int getId(){
 		return ID;
 	}

@@ -58,14 +58,8 @@ public class Fish extends Resource{
 
 		init(subID);
 	}
-
-	private void addFish(Item item, int amt) {
-		for (int i = 0; i < amt; i++) {
-			inventory.add(item, false);
-		}
-	}
 	
-	 public static int getID(){
+	 public int getID(){
 		 return id;
 	 }
 }

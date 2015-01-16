@@ -17,8 +17,10 @@ import entities.resources.Tree;
 
 public class Factory {
 
+	@SuppressWarnings("unused")
 	private GameWorld world;
 	
+	@SuppressWarnings("unused")
 	private int tiles [] [] = new int [30] [30];
 	
 	private static Random rand = new Random();
@@ -37,7 +39,7 @@ public class Factory {
 	 * @return
 	 * @throws SlickException 
 	 */
-	public static Resource newRandResource(int x, int y, int ID) throws SlickException{
+	public static Resource newRandResource(int x, int y) throws SlickException{
 		
 		int temp = rand.nextInt(4) + 1;
 		

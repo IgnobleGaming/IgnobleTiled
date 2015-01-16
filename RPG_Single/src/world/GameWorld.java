@@ -34,19 +34,19 @@ public class GameWorld extends World {
 
 	// MAP VARIABLES //
 	private static TiledMap map;
-	
+
 	private String mapPath = "Images/tileMAp/test1.tmx";
-	
+
 	private Camera cam;
 
 	// ENTITIES //
 	private static Player player;
-	
+
 	private Vector<Npc> npcs = new Vector<Npc>(0, 1);
 
 	// RESOURCES //
 	private WorldResources wResource;
-	
+
 	// RANDOM //
 	private Random random = new Random();
 
@@ -140,10 +140,30 @@ public class GameWorld extends World {
 		}
 
 		if (input.isKeyPressed(Input.KEY_G)) {
-			Resource e = Factory.newOre(random.nextInt(5), random.nextInt(5), 1);
-			if(WorldResources.addResource(e)){
+			addResource();
+		}
+	}
+
+	private void addResource() {
+		
+		int tempX = random.nextInt(map.getWidth());
+		int tempY = random.nextInt(map.getHeight());
+
+		Resource e = null;
+		
+		if (isTileEmpty(tempX, tempY)) {
+			try {
+				e = Factory.newOre(tempX, tempY,
+						random.nextInt(5) + 1);
+			} catch (SlickException e1) {
+				e1.printStackTrace();
+			}
+			if (e != null && WorldResources.getNumResources() < WorldResources.getMaxNumResources()) {
+				WorldResources.addResource(e);
 				add(e);
 			}
+		} else {
+			addResource();
 		}
 	}
 
@@ -166,15 +186,24 @@ public class GameWorld extends World {
 		return null;
 	}
 
-	public WorldResources getWRes(){
+	/** Checks if a particular tile is empty */
+	public boolean isTileEmpty(float x, float y) {
+		for (Entity entity : getEntities()) {
+			if (entity.x == x && entity.y == y)
+				return false;
+		}
+		return true;
+	}
+
+	public WorldResources getWRes() {
 		return wResource;
 	}
-	
-	public Vector<Resource> getRes(){
+
+	public Vector<Resource> getRes() {
 		return wResource.getResources();
 	}
-	
-	public void addToRemoved(Entity e){
+
+	public void addToRemoved(Entity e) {
 		remove(e);
 	}
 }

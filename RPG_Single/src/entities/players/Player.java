@@ -51,11 +51,11 @@ public class Player extends Mob {
 	private int direction = -1;
 
 	/** Player's Skills */
-	private Skill skills[] = new Skill [12];
-	private int skillExp[] = new int [12];
-	private int skillLevels[] = new int [12];
+	private Skill skills[] = new Skill[12];
+	private int skillExp[] = new int[12];
+	private int skillLevels[] = new int[12];
 	private final int maxEL = 100;
-	
+
 	@SuppressWarnings("unused")
 	private int height;
 	@SuppressWarnings("unused")
@@ -84,7 +84,7 @@ public class Player extends Mob {
 
 		depth = 0;
 
-		defineControls();
+		init();
 	}
 
 	/** Player Update Loop */
@@ -92,8 +92,16 @@ public class Player extends Mob {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		super.update(container, delta);
-	
+
 		nonCombatControls();
+		updateSkillExp();
+	}
+
+	/** Definitions */
+	public void init() {
+
+		defineControls();
+		defineSkills();
 	}
 
 	/**
@@ -106,11 +114,11 @@ public class Player extends Mob {
 		define(RIGHT, Input.KEY_D, Input.KEY_RIGHT);
 		define(INTERACT, Input.KEY_E);
 	}
-	
+
 	/**
 	 * Defines User Skills
 	 */
-	private void defineSkills(int [] exp, int [] levels){
+	private void defineSkills() {
 		skills[0] = null;
 		skills[1] = new Mining();
 		skills[2] = new Fishing();
@@ -124,23 +132,22 @@ public class Player extends Mob {
 		skills[10] = new LeatherWorking();
 		skills[11] = new Tailoring();
 	}
-	
-	private void updateSkillExp(){
-		for(int i = 0; i < skillExp.length; i++){
-			
-			if(skillLevels[i] >= maxEL){
+
+	private void updateSkillExp() {
+		for (int i = 0; i < skillExp.length; i++) {
+
+			if (skillLevels[i] >= maxEL) {
 				skillLevels[i] = maxEL;
 				continue;
-			} else{
-				if(skillExp[i] >= maxEL){
+			} else {
+				if (skillExp[i] >= maxEL) {
 					skillLevels[i] = (int) Math.floor(skillExp[i] / maxEL);
 					skillExp[i] = skillExp[i] % maxEL;
 				}
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Non Combat Movement
 	 * 
@@ -181,12 +188,17 @@ public class Player extends Mob {
 					talk((Npc) e);
 
 				if (e instanceof Resource) {
-					if (harvest((Resource) e)) {
+					if (skillLevels[((Resource) e).getId()] >= ((Resource) e)
+							.getReq()) {
+						if (harvest((Resource) e)) {
 
-						int tempId = ((Resource) e).getId();
-						int exp = Resource.getExp();
-						skills[tempId].addExp(exp);
-						WorldResources.removeResource((Resource) e);
+							int tempId = ((Resource) e).getId();
+							int exp = ((Resource) e).getExp();
+							skills[tempId].addExp(exp);
+							WorldResources.removeResource((Resource) e);
+						}
+					} else {
+						System.out.println("Ain't enough skill, nuigguh");
 					}
 				}
 			}
@@ -222,16 +234,14 @@ public class Player extends Mob {
 	}
 
 	public boolean harvest(Resource resource) {
-		/**
-		 * change animation depending on instanceof object for(int i = 0; i <
-		 * resource.getInvSize(); i++){ if(!inventory.isFull()){
-		 * 
-		 * } else {
-		 * 
-		 * } }
-		 */
 
 		if (resource.harvest()) {
+
+			int skillId = resource.getId();
+			int exp = resource.getExp();
+
+			skills[skillId].addExp(exp);
+			WorldResources.removeResource(resource);
 			return true;
 		} else {
 			return false;
