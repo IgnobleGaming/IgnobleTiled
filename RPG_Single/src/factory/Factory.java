@@ -5,7 +5,6 @@ import java.util.Random;
 import org.newdawn.slick.SlickException;
 
 import world.GameWorld;
-import world.Tile;
 import entities.Item;
 import entities.Mob;
 import entities.Resource;
@@ -84,10 +83,6 @@ public class Factory {
 	}
 
 	public static Item newItem(float x, float y, int mID, int ID, int subID) {
-		return null;
-	}
-
-	public static Tile newTile(float x, float y, int ID, int subID) {
 		return null;
 	}
 }
